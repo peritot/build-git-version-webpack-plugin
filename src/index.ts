@@ -40,7 +40,7 @@ class BuildGitVersionWebpackPlugin {
     let commit = {};
     try {
       const id = execSync('git rev-parse HEAD').toString().trim();
-      const detail = execSync('git show --pretty=format:"%an-----%ae-----%ci-----%s" | head -1').toString().trim();
+      const detail = execSync('git --no-pager log --pretty=format:"%an-----%ae-----%ci-----%s" HEAD -1').toString().trim();
       const [an, ae, ci, s] = detail?.split('-----') || [];
 
       commit = {
