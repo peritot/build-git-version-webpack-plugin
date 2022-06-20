@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": ".temp/types",
+    "emitDeclarationOnly": true
+  },
+  "include": ["src"]
+}
