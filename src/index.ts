@@ -2,15 +2,45 @@ import { execSync } from 'child_process';
 import { dateToStr } from './utils/date';
 
 /**
+ * @public
+ */
+interface Options {
+  showMessage: boolean;
+  extend?: object;
+}
+
+/**
+ * @public
+ */
+interface CommitInfo {
+  id: string;
+  time: string;
+  author: {
+    name: string;
+    email: string;
+  };
+  message?: string;
+}
+
+/**
  * Add version.json to dist
  * @public
  */
 class BuildGitVersionWebpackPlugin {
-  pluginName = 'BuildGitVersionWebpackPlugin';
+  constructor(options: Options) {
+    this.options = { ...this.options, ...options };
+  }
+
+  name: string = 'BuildGitVersionWebpackPlugin';
+
+  options: Options = {
+    showMessage: false,
+  };
 
   apply(compiler) {
-    compiler.hooks.emit.tapAsync(this.pluginName, (compilation, callback) => {
-      const content = JSON.stringify(this.fetchInfo(), undefined, 4);
+    compiler.hooks.emit.tapAsync(this.name, (compilation, callback) => {
+      const info = this.fetchInfo();
+      const content = JSON.stringify(info, undefined, 4);
 
       compilation.assets['version.json'] = {
         source: () => content,
@@ -22,7 +52,7 @@ class BuildGitVersionWebpackPlugin {
   }
 
   fetchInfo() {
-    let branch;
+    let branch: string | undefined;
     try {
       branch = execSync('git rev-parse --abbrev-ref --symbolic-full-name @{u}').toString().trim();
     } catch {
@@ -37,7 +67,7 @@ class BuildGitVersionWebpackPlugin {
       }
     }
 
-    let commit = {};
+    let commit: CommitInfo | undefined;
     try {
       const id = execSync('git rev-parse HEAD').toString().trim();
       const detail = execSync('git --no-pager log --pretty=format:"%an-----%ae-----%ci-----%s" HEAD -1').toString().trim();
@@ -46,17 +76,20 @@ class BuildGitVersionWebpackPlugin {
       commit = {
         id,
         time: dateToStr(new Date(ci)),
-        message: s,
         author: {
           name: an,
           email: ae,
         },
       };
+
+      if (this.options.showMessage) {
+        commit.message = s;
+      }
     } catch {
       //
     }
 
-    return {
+    let info = {
       build: {
         time: dateToStr(new Date()),
       },
@@ -65,7 +98,13 @@ class BuildGitVersionWebpackPlugin {
         commit,
       },
     };
+
+    if (Object.prototype.toString.call(this.options.extend) === '[object Object]') {
+      info = { ...info, ...this.options.extend };
+    }
+
+    return info;
   }
 }
 
-export { BuildGitVersionWebpackPlugin };
+export { Options, CommitInfo, BuildGitVersionWebpackPlugin };
