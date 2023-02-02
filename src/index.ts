@@ -61,6 +61,18 @@ class BuildGitVersionWebpackPlugin {
 
     if (!branch) {
       try {
+        branch = execSync('git name-rev --name-only HEAD').toString().trim();
+
+        if (branch?.indexOf('remotes/') === 0) {
+          branch = branch.replace('remotes/', '');
+        }
+      } catch {
+        //
+      }
+    }
+
+    if (!branch) {
+      try {
         branch = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
       } catch {
         //
