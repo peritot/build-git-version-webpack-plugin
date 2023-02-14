@@ -63,8 +63,8 @@ class BuildGitVersionWebpackPlugin {
       try {
         branch = execSync('git name-rev --name-only HEAD').toString().trim();
 
-        if (branch?.indexOf('remotes/') === 0) {
-          branch = branch.replace('remotes/', '');
+        if (branch) {
+          branch = branch.replace(/(^remotes\/)?(origin\/)?(tags\/)?(\^\d*$)?/g, '');
         }
       } catch {
         //
