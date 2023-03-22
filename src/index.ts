@@ -5,6 +5,7 @@ import { dateToStr } from './utils/date';
  * @public
  */
 interface Options {
+  showAuthor: boolean;
   showMessage: boolean;
   extend?: object;
 }
@@ -15,7 +16,7 @@ interface Options {
 interface CommitInfo {
   id: string;
   time: string;
-  author: {
+  author?: {
     name: string;
     email: string;
   };
@@ -34,6 +35,7 @@ class BuildGitVersionWebpackPlugin {
   name: string = 'BuildGitVersionWebpackPlugin';
 
   options: Options = {
+    showAuthor: false,
     showMessage: false,
   };
 
@@ -85,15 +87,10 @@ class BuildGitVersionWebpackPlugin {
       const detail = execSync('git --no-pager log --pretty=format:"%an-----%ae-----%ci-----%s" HEAD -1').toString().trim();
       const [an, ae, ci, s] = detail?.split('-----') || [];
 
-      commit = {
-        id,
-        time: dateToStr(new Date(ci)),
-        author: {
-          name: an,
-          email: ae,
-        },
-      };
-
+      commit = { id, time: dateToStr(new Date(ci)) };
+      if (this.options.showAuthor) {
+        commit.author = { name: an, email: ae };
+      }
       if (this.options.showMessage) {
         commit.message = s;
       }
@@ -101,16 +98,7 @@ class BuildGitVersionWebpackPlugin {
       //
     }
 
-    let info = {
-      build: {
-        time: dateToStr(new Date()),
-      },
-      git: {
-        branch,
-        commit,
-      },
-    };
-
+    let info = { build: { time: dateToStr(new Date()) }, git: { branch, commit } };
     if (Object.prototype.toString.call(this.options.extend) === '[object Object]') {
       info = { ...info, ...this.options.extend };
     }
