@@ -1,6 +1,6 @@
 {
   "name": "build-git-version-webpack-plugin",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A webpack plugin, add version.json to dist.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -17,6 +17,9 @@
     "dev": "pnpm clean && pnpm types && pnpm watch",
     "build": "pnpm clean && pnpm types && pnpm compile",
     "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.7"
   },
   "devDependencies": {
     "@babel/core": "~7.18.2",

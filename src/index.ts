@@ -87,7 +87,7 @@ class BuildGitVersionWebpackPlugin {
       const detail = execSync('git --no-pager log --pretty=format:"%an-----%ae-----%ci-----%s" HEAD -1').toString().trim();
       const [an, ae, ci, s] = detail?.split('-----') || [];
 
-      commit = { id, time: dateToStr(new Date(ci)) };
+      commit = { id, time: dateToStr(ci) };
       if (this.options.showAuthor) {
         commit.author = { name: an, email: ae };
       }
@@ -98,7 +98,7 @@ class BuildGitVersionWebpackPlugin {
       //
     }
 
-    let info = { build: { time: dateToStr(new Date()) }, git: { branch, commit } };
+    let info = { build: { time: dateToStr() }, git: { branch, commit } };
     if (Object.prototype.toString.call(this.options.extend) === '[object Object]') {
       info = { ...info, ...this.options.extend };
     }

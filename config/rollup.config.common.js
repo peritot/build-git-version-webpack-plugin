@@ -30,6 +30,11 @@ const config = {
       presets: ['@babel/preset-env'],
     }),
   ],
+  external: ['dayjs', 'dayjs/plugin/utc', 'dayjs/plugin/timezone'],
 };
 
-export { name, paths, config };
+const globals = {
+  dayjs: 'dayjs',
+};
+
+export { name, paths, config, globals };
