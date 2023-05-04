@@ -4,7 +4,11 @@ import timezone from 'dayjs/plugin/timezone';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
-dayjs.tz.setDefault('Asia/Shanghai');
+
+/**
+ * 中国标准时间
+ */
+const tz = 'Asia/Shanghai';
 
 /**
  * 时间格式化
@@ -12,5 +16,6 @@ dayjs.tz.setDefault('Asia/Shanghai');
  * @returns
  */
 export const dateToStr = (str?: string): string => {
-  return dayjs.tz(str).format('YYYY-MM-DD HH:mm:ss');
+  const date = dayjs(str);
+  return dayjs.tz(date, tz).format('YYYY-MM-DD HH:mm:ss');
 };
