@@ -1,1 +1,0 @@
-export { dateToStr } from './date';

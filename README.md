@@ -25,7 +25,7 @@ module.exports = {
 }
 ```
 
-#### Use in Vue
+#### Use in Vue 2
 
 [Working with Webpack](https://cli.vuejs.org/guide/webpack.html)
 
@@ -60,6 +60,10 @@ module.exports = {
 }
 ```
 
+#### Use in Vue 3 & Vite & Rollup
+
+recommend [rollup-plugin-build-git-version](https://github.com/peritot/rollup-plugin-build-git-version)
+
 #### Use in React
 
 - eject, and config in webpack
@@ -86,3 +90,7 @@ module.exports = {
     }
 }
 ```
+
+## Links
+
+- [rollup-plugin-build-git-version](https://github.com/peritot/rollup-plugin-build-git-version)
