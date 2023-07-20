@@ -1,23 +1,54 @@
 import path from 'path';
-import { terser } from 'rollup-plugin-terser';
-import { name, paths, config, globals } from './rollup.config.common';
+import dts from 'rollup-plugin-dts';
+import terser from '@rollup/plugin-terser';
+import { name, paths, config, globals } from './rollup.config.common.js';
 
-const output = [
+export default [
   {
-    file: path.resolve(paths.cjs, 'index.js'),
-    format: 'cjs',
-    name,
-    globals,
+    ...config,
+    output: [
+      {
+        file: path.resolve(paths.output, 'index.js'),
+        format: 'cjs',
+        exports: 'named',
+        name,
+        globals,
+      },
+      {
+        file: path.resolve(paths.output, 'index.min.js'),
+        format: 'cjs',
+        exports: 'named',
+        name,
+        globals,
+        sourcemap: true,
+        plugins: [terser()],
+      },
+      {
+        file: path.resolve(paths.output, 'index.esm.js'),
+        format: 'esm',
+        name,
+        globals,
+      },
+      {
+        file: path.resolve(paths.output, 'index.esm.min.js'),
+        format: 'esm',
+        name,
+        globals,
+        sourcemap: true,
+        plugins: [terser()],
+      },
+    ],
   },
   {
-    file: path.resolve(paths.esm, 'index.js'),
-    format: 'esm',
-    name,
-    globals,
+    input: paths.input,
+    output: [
+      {
+        file: path.resolve(paths.output, 'index.d.ts'),
+        format: 'esm',
+        name,
+        globals,
+      },
+    ],
+    plugins: [dts.default()],
   },
 ];
-
-export default {
-  ...config,
-  output: [...output, ...output.map((item) => ({ ...item, file: item.file.replace(/.js$/i, '.min.js'), plugins: [terser()] }))],
-};

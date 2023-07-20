@@ -1,6 +1,6 @@
 # build-git-version-webpack-plugin
 
-A webpack plugin, add version.json to dist.
+A webpack plugin, add git info version.json to dist.
 
 ## Usage
 
@@ -62,7 +62,7 @@ module.exports = {
 
 #### Use in Vue 3 & Vite & Rollup
 
-recommend [rollup-plugin-build-git-version](https://github.com/peritot/rollup-plugin-build-git-version)
+recommend [rollup-plugin-build-git-version](https://www.npmjs.com/package/rollup-plugin-build-git-version)
 
 #### Use in React
 
@@ -93,4 +93,4 @@ recommend [rollup-plugin-build-git-version](https://github.com/peritot/rollup-pl
 
 ## Links
 
-- [rollup-plugin-build-git-version](https://github.com/peritot/rollup-plugin-build-git-version)
+- [rollup-plugin-build-git-version](https://www.npmjs.com/package/rollup-plugin-build-git-version)

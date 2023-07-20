@@ -155,3 +155,7 @@ CHANGELOG.md
 *.suo
 *.sw?
 *.zip
+
+# Project
+dist/
+lib/

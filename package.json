@@ -1,49 +1,52 @@
 {
   "name": "build-git-version-webpack-plugin",
-  "version": "0.0.9",
-  "description": "A webpack plugin, add version.json to dist.",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
+  "version": "0.0.10",
+  "description": "A webpack plugin, add git info version.json to dist",
+  "main": "lib/index.js",
+  "module": "lib/index.esm.js",
+  "types": "lib/index.d.ts",
   "files": [
-    "dist",
-    "doc"
+    "lib"
+  ],
+  "keywords": [
+    "webpack",
+    "version"
   ],
   "scripts": {
-    "clean": "rimraf dist && rimraf .temp",
-    "types": "tsc",
-    "watch": "rollup -w -c config/rollup.config.development.js",
-    "compile": "rollup -c config/rollup.config.production.js",
-    "dev": "npm run clean && npm run types && npm run watch",
-    "build": "npm run clean && npm run types && npm run compile",
-    "prepublishOnly": "npm run build"
+    "type-check": "tsc --noEmit",
+    "watch": "rollup --bundleConfigAsCjs -w -c config/rollup.config.development.js",
+    "compile": "rollup --bundleConfigAsCjs -c config/rollup.config.production.js",
+    "dev": "pnpm type-check && pnpm watch",
+    "build": "pnpm type-check && pnpm compile",
+    "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "dayjs": "^1.11.9",
-    "rollup-plugin-build-git-version": "^0.0.1"
+    "rollup-plugin-build-git-version": "^0.0.3"
   },
   "devDependencies": {
-    "@babel/core": "~7.18.2",
-    "@babel/preset-env": "~7.18.2",
-    "@microsoft/api-extractor": "~7.25.0",
-    "@rollup/plugin-babel": "~5.3.1",
-    "@rollup/plugin-commonjs": "~22.0.0",
-    "@rollup/plugin-node-resolve": "~13.3.0",
-    "@rollup/plugin-typescript": "~8.3.2",
-    "@typescript-eslint/eslint-plugin": "^5.28.0",
-    "@typescript-eslint/parser": "^5.28.0",
-    "eslint": "^8.18.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.2.3",
+    "@babel/core": "^7.22.9",
+    "@babel/preset-env": "^7.22.9",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^25.0.3",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-terser": "^0.4.3",
+    "@rollup/plugin-typescript": "^11.1.2",
+    "@types/node": "^20.4.2",
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^6.1.0",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-standard-with-typescript": "^36.1.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
     "eslint-plugin-promise": "^6.0.0",
-    "prettier": "^2.7.1",
-    "rollup": "~2.75.6",
-    "rollup-plugin-api-extractor": "~0.2.5",
-    "rollup-plugin-terser": "^7.0.2",
-    "tslib": "~2.4.0",
-    "typescript": "~4.7.3"
+    "prettier": "^3.0.0",
+    "rollup": "^3.26.3",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-typescript2": "^0.35.0",
+    "typescript": "^5.1.6"
   },
   "author": {
     "name": "peritot",
@@ -54,9 +57,5 @@
     "type": "git",
     "url": "git+https://github.com/peritot/build-git-version-webpack-plugin"
   },
-  "keywords": [
-    "webpack",
-    "version"
-  ],
   "license": "ISC"
 }

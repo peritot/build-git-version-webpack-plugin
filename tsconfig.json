@@ -1,19 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "module": "esnext",
-    "esModuleInterop": true,
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
-    "skipLibCheck": true,
-    "declaration": true,
-    "declarationMap": true,
-    "declarationDir": ".temp/types",
-    "emitDeclarationOnly": true
+    "skipLibCheck": true
   },
   "include": ["src"]
 }

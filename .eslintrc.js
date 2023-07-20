@@ -6,6 +6,17 @@ module.exports = {
   },
   extends: ['eslint:recommended', 'standard', 'prettier'],
   parser: '@typescript-eslint/parser',
+  overrides: [
+    {
+      env: {
+        node: true,
+      },
+      files: ['.eslintrc.{js,cjs}'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
+  ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',

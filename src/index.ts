@@ -12,21 +12,28 @@ class BuildGitVersionWebpackPlugin {
   name: string = 'BuildGitVersionWebpackPlugin';
 
   option: BuildGitVersionPluginOption = {
+    timeZone: 'Asia/Shanghai',
     showAuthor: false,
     showMessage: false,
   };
 
   apply(compiler) {
     compiler.hooks.emit.tapAsync(this.name, (compilation, callback) => {
-      const info = buildGitVersion(this.option);
-      const content = JSON.stringify(info, undefined, 4);
+      try {
+        const { fileName = 'version.json', ...option } = this.option || {};
 
-      compilation.assets['version.json'] = {
-        source: () => content,
-        size: () => content.length,
-      };
+        const info = buildGitVersion(option);
+        const content = JSON.stringify(info, undefined, 4);
 
-      callback();
+        compilation.assets[fileName] = {
+          source: () => content,
+          size: () => content.length,
+        };
+
+        callback();
+      } catch (error) {
+        console.log('BuildGitVersionWebpackPlugin error', error);
+      }
     });
   }
 }
