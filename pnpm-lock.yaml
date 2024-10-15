@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   rollup-plugin-build-git-version:
-    specifier: ^0.0.5
-    version: 0.0.5
+    specifier: ^0.0.7
+    version: 0.0.7
 
 devDependencies:
   '@babel/core':
@@ -3409,8 +3409,8 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rollup-plugin-build-git-version@0.0.5:
-    resolution: {integrity: sha512-cASganOq3jRdK5oqRAZEH8ny8H0ebgyNWIYx3SQO8ErLnxhnrZLvhZKshK+TxY5xLIeijg+qaMmtUMyBXd7fQg==}
+  /rollup-plugin-build-git-version@0.0.7:
+    resolution: {integrity: sha512-0uLTxWTARbYku6RL7danwiKixYagkcxYsnYoJw0uAJTcEzyjxaJJkAxDeOlo2fbTSEsPCHJUI0jHG9wxxMvHDQ==}
     dependencies:
       dayjs: 1.11.9
     dev: false
